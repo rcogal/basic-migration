@@ -4,11 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "migration:create-exec": "./node_modules/.bin/nexe run.migration.js --name unify-migration",
+    "migration:up": "node ./run.migration --state up",
+    "migration:down": "node ./run.migration --state down"
   },
   "author": "Romel Lauron",
   "license": "ISC",
   "dependencies": {
+    "isurvey": "^1.0.11",
     "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "nexe": "^3.3.2"
   }
 }

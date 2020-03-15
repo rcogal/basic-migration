@@ -1,9 +1,13 @@
 const path = require("path");
+const users = require( '../seed/user.json');
 
 module.exports = {
   up: function () {
-    return new Promise(function (resolve, reject) {
-      /* Here we write our migration function */
+    return new Promise( async function (resolve, reject) {
+
+
+      // migration update
+
       resolve({
         migration: path.basename(__filename),
         timestamp: +(new Date()),
@@ -14,7 +18,8 @@ module.exports = {
 
   down: function () {
     return new Promise(function (resolve, reject) {
-      /* This runs if we decide to rollback. In that case we must revert the `up` function and bring our database to it's initial state */
+
+      // migration revert
 
       resolve({
         migration: path.basename(__filename),

@@ -1,30 +1,28 @@
 
 const fs = require('fs');
-const directoryLog = "__log.json";
 
 module.exports = {
-  create: function (data, callback) {
-    if (!data) return;
+  create: function (logData, path) {
+    return new Promise( (resolve, reject)  => {
+      if (!path) reject("path is empty");
 
-    this.get().then( log => {
-
-      if (log) {
-        // push the new log data
-        const newLog = log.concat( data );
-        //convert it back to json
-        const logData = JSON.stringify(newLog);
-
-        fs.writeFile(directoryLog, logData, 'utf8', callback || function() {});
+      if (!logData) {
+        resolve(false);
+      } else {
+        fs.writeFile(path, logData, 'utf-8', function() {
+          resolve(logData);
+        });
       }
-
     } );
 
   },
 
-  get: function () {
+  get: function (path) {
+    return new Promise( (resolve, reject) => {
 
-    return new Promise(function (resolve, reject) {
-      fs.readFile(directoryLog, 'utf8', function(err, content) {
+      if (!path) reject("path is empty");
+
+      fs.readFile(path, 'utf8', function(err, content) {
         if (err) reject(err);
 
         const json = content ? JSON.parse( content ) : [];
@@ -32,6 +30,5 @@ module.exports = {
         resolve(json);
       } );
     });
-
   }
 }
